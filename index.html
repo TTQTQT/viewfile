@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Open PDF in Chrome</title>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get("url");
+
+    if (target) {
+      const chromeIntent = "intent://" + target.replace(/^https?:\/\//, "") +
+        "#Intent;scheme=https;package=com.android.chrome;end";
+      window.location = chromeIntent;
+
+      setTimeout(() => {
+        document.body.innerHTML = `
+          <h3>Không tự mở được, bấm link bên dưới để xem:</h3>
+          <a href="${target}" target="_blank">${target}</a>
+        `;
+      }, 2000);
+    } else {
+      document.body.innerHTML = "<h3>Thiếu tham số ?url=</h3>";
+    }
+  </script>
+</head>
+<body>
+  <h3>Đang mở file PDF...</h3>
+</body>
+</html>
